@@ -77,3 +77,35 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 });
+
+// search bar
+const toggleBtn = document.getElementById('toggleSearch');
+const searchWrapper = document.getElementById('searchWrapper');
+const searchBar = document.getElementById('searchBar');
+const goBtn = document.getElementById('goBtn');
+const suggestions = document.getElementById('suggestions');
+
+let isOpen = false;
+
+toggleBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  if (!isOpen) {
+    searchWrapper.classList.add('show'); // overlay appears
+    searchBar.classList.add('dot');
+    setTimeout(() => {
+      searchBar.classList.add('expanded');
+      searchBar.focus();
+    }, 300);
+    isOpen = true;
+  } else {
+    searchBar.classList.remove('expanded');
+    searchBar.blur();
+    setTimeout(() => searchBar.classList.remove('dot'), 300);
+    searchWrapper.classList.remove('show');
+    searchBar.value = '';
+    suggestions.innerHTML = '';
+    suggestions.classList.remove('show');
+    isOpen = false;
+  }
+});
+

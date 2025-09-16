@@ -196,7 +196,10 @@
   // Filter function
   function filterBooks(query) {
     const q = query.toLowerCase().trim();
-    const filtered = books.filter(book => book.title.toLowerCase().includes(q));
+    const filtered = books.filter(book =>
+  book.title.toLowerCase().includes(q) ||
+  book.author.toLowerCase().includes(q)
+);
     renderSuggestions(filtered);
   }
 

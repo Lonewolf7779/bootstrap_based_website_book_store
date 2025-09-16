@@ -10,30 +10,24 @@
  </head>
 <body>
   <!-- 👇 Changed: added id="mainNavbar" so JS can target the navbar -->
-  <nav id="mainNavbar" class="navbar navbar-expand-lg navbar-dark bg-transparent fixed-top">
+  <!-- Navbar stays the same -->
+ <nav id="mainNavbar" class="navbar navbar-expand-lg navbar-dark bg-transparent fixed-top">
     <div class="container-fluid">
-      <!-- Brand -->
       <a class="navbar-brand fs-4 fw-light text-white" href="#">Page & Pillow</a>
 
-      <!-- Toggler -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
         aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <!-- Links -->
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <!-- Center nav -->
         <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-4 text-center">
           <li class="nav-item"><a class="nav-link text-white fs-5 fw-light" href="#about-us">About us</a></li>
           <li class="nav-item"><a class="nav-link text-white fs-5 fw-light" href="#">Books</a></li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-white fs-5 fw-light" 
-            href="#" id="navbarDropdown" role="button"
-            data-bs-toggle="dropdown" aria-expanded="false">
-              Category
-            </a>
+            <a class="nav-link dropdown-toggle text-white fs-5 fw-light" href="#" id="navbarDropdown" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false">Category</a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="#">Fiction</a></li>
               <li><a class="dropdown-item" href="#">Non-Fiction</a></li>
@@ -44,14 +38,23 @@
           <li class="nav-item"><a class="nav-link text-white fs-5 fw-light" href="#best-sellers">Best Sellers</a></li>
         </ul>
 
-        <!-- Right nav -->
-        <ul class="navbar-nav ms-auto text-center">
-          <li class="nav-item"><a class="nav-link text-white fs-5 fw-light me-4" href="#">Cart</a></li>
+        <ul class="navbar-nav ms-auto text-center align-items-center">
+          <li class="nav-item me-3">
+            <a class="nav-link text-white fs-5 fw-light" href="#" id="toggleSearch">Search</a>
+          </li>
+          <li class="nav-item me-3"><a class="nav-link text-white fs-5 fw-light" href="#">Cart</a></li>
           <li class="nav-item"><a class="nav-link text-white fs-5 fw-light" href="#">Sign in</a></li>
         </ul>
       </div>
     </div>
   </nav>
+
+  <!-- Search Wrapper (Overlay) -->
+  <div id="searchWrapper">
+    <input type="text" id="searchBar" placeholder="Search books...">
+    <button class="btn btn-primary" id="goBtn">Go</button>
+    <div id="suggestions"></div>
+  </div>
 
   <!-- Hero Section -->
   <section class="hero-section d-flex flex-column justify-content-center text-white">
