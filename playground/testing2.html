@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morphing Search + Horizontal Suggestions</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  /* Search bar wrapper */
+  #searchWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background: #f8f9fa;
+    border-top: 1px solid #ddd;
+    min-height: 60px;
+    gap: 8px;
+    position: relative;
+  }
+
+  /* Hidden initially */
+  #searchBar {
+    width: 0;
+    height: 0;
+    opacity: 0;
+    border: none;
+    outline: none;
+    border-radius: 50%;
+    background: #007bff;
+    transition: all 0.6s cubic-bezier(0.25,1,0.3,1);
+    text-indent: -9999px;
+    cursor: pointer;
+  }
+
+  /* Dot state */
+  #searchBar.dot {
+    width: 20px;
+    height: 20px;
+    opacity: 1;
+    border-radius: 50%;
+    background: #007bff;
+  }
+
+  /* Expanded state */
+  #searchBar.expanded {
+    width: 60%;
+    height: 40px;
+    border-radius: 25px;
+    background: #fff;
+    border: 2px solid #007bff;
+    padding: 0 15px;
+    text-indent: 0;
+    color: black;
+    opacity: 1;
+    cursor: text;
+  }
+
+  #searchBar.expanded::placeholder {
+    color: #666;
+    opacity: 0.7;
+  }
+
+  /* Go button hidden initially */
+  #goBtn {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  #searchBar.expanded + #goBtn {
+    display: inline-block;
+    opacity: 1;
+  }
+
+  /* Horizontal dropdown suggestions */
+  #suggestions {
+    position: absolute;
+    top: 55px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    max-width: 80%;
+    overflow-x: auto;
+    background: #fff;
+    border: 1px solid #007bff;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 100;
+  }
+
+  #suggestions.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  #suggestions .suggestion-item {
+    padding: 8px 12px;
+    background: #007bff;
+    color: white;
+    border-radius: 8px;
+    white-space: nowrap;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+
+  #suggestions .suggestion-item:hover {
+    transform: scale(1.05);
+  }
+
+  /* Hide scrollbar */
+  #suggestions::-webkit-scrollbar {
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">BookStore</a>
+    <button class="btn btn-outline-light" id="toggleSearch">🔍 Search</button>
+  </div>
+</nav>
+
+<!-- Morphing Search Bar -->
+<div id="searchWrapper">
+  <input type="text" id="searchBar" placeholder="Search books...">
+  <button class="btn btn-primary" id="goBtn">Go</button>
+  <div id="suggestions"></div>
+</div>
+
+<script>
+  const toggleBtn = document.getElementById('toggleSearch');
+  const searchBar = document.getElementById('searchBar');
+  const goBtn = document.getElementById('goBtn');
+  const suggestions = document.getElementById('suggestions');
+  let isOpen = false;
+  let books = [];
+
+  // Load books.json
+  fetch('books.json')
+    .then(res => res.json())
+    .then(data => books = data)
+    .catch(err => console.error('Failed to load books.json', err));
+
+  // Morphing search bar toggle
+  toggleBtn.addEventListener('click', () => {
+    if (!isOpen) {
+      searchBar.classList.add('dot');
+      setTimeout(() => {
+        searchBar.classList.add('expanded');
+        searchBar.focus();
+      }, 400);
+      isOpen = true;
+    } else {
+      searchBar.classList.remove('expanded');
+      searchBar.blur();
+      setTimeout(() => {
+        searchBar.classList.remove('dot');
+      }, 400);
+      isOpen = false;
+      searchBar.value = '';
+      suggestions.innerHTML = '';
+      suggestions.classList.remove('show');
+    }
+  });
+
+  // Render suggestions
+  function renderSuggestions(filtered) {
+    suggestions.innerHTML = '';
+    if (filtered.length === 0) {
+      suggestions.classList.remove('show');
+      return;
+    }
+    filtered.forEach(book => {
+      const div = document.createElement('div');
+      div.className = 'suggestion-item';
+      div.textContent = book.title;
+      div.addEventListener('click', () => {
+        searchBar.value = book.title;
+        suggestions.classList.remove('show');
+      });
+      suggestions.appendChild(div);
+    });
+    suggestions.classList.add('show');
+  }
+
+  // Filter function
+  function filterBooks(query) {
+    const q = query.toLowerCase().trim();
+    const filtered = books.filter(book => book.title.toLowerCase().includes(q));
+    renderSuggestions(filtered);
+  }
+
+  // Live filtering
+searchBar.addEventListener('input', () => {
+  const query = searchBar.value.trim();
+  if (query === '') {
+    suggestions.innerHTML = '';
+    suggestions.classList.remove('show');
+    return;
+  }
+  filterBooks(query);
+});
+
+
+  // Go button click
+  goBtn.addEventListener('click', () => {
+    filterBooks(searchBar.value);
+  });
+
+  // Enter key triggers Go
+  searchBar.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') filterBooks(searchBar.value);
+  });
+</script>
+
+</body>
+</html>

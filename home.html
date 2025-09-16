@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pages & Pillow</title>
+  <link rel="stylesheet" href="./css/bootstrap.css">
+  <link rel="stylesheet" href="style.css">
+
+ </head>
+<body>
+  <!-- 👇 Changed: added id="mainNavbar" so JS can target the navbar -->
+  <nav id="mainNavbar" class="navbar navbar-expand-lg navbar-dark bg-transparent fixed-top">
+    <div class="container-fluid">
+      <!-- Brand -->
+      <a class="navbar-brand fs-4 fw-light text-white" href="#">Page & Pillow</a>
+
+      <!-- Toggler -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Links -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!-- Center nav -->
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-4 text-center">
+          <li class="nav-item"><a class="nav-link text-white fs-5 fw-light" href="#about-us">About us</a></li>
+          <li class="nav-item"><a class="nav-link text-white fs-5 fw-light" href="#">Books</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-white fs-5 fw-light" 
+            href="#" id="navbarDropdown" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false">
+              Category
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Fiction</a></li>
+              <li><a class="dropdown-item" href="#">Non-Fiction</a></li>
+              <li><a class="dropdown-item" href="#">Self-help</a></li>
+              <li><a class="dropdown-item" href="#">Science & Tech</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link text-white fs-5 fw-light" href="#best-sellers">Best Sellers</a></li>
+        </ul>
+
+        <!-- Right nav -->
+        <ul class="navbar-nav ms-auto text-center">
+          <li class="nav-item"><a class="nav-link text-white fs-5 fw-light me-4" href="#">Cart</a></li>
+          <li class="nav-item"><a class="nav-link text-white fs-5 fw-light" href="#">Sign in</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section d-flex flex-column justify-content-center text-white">
+    <div class="container text-start">
+      <h1 class="hero-title fw-light">Welcome to Page & Pillow</h1>
+      <p class="hero-subtitle fw-light">
+        Explore the depth of human imagination in books — how far can you go?<br>
+        Find your best read here!
+      </p>
+      <a href="#" class="btn btn-outline-light btn-lg mt-3">Explore Now</a>
+    </div>
+  </section>
+
+<h1 class="f-1 fw-light text-center mt-5 mb-5" id="about-us" style="font-size: 400%; color: black;">About us</h1>
+
+<!-- Add Bootstrap 5 if you don't already have it:
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+-->
+
+<section class="py-5 bg-light">
+  <div class="container">
+    <div class="row justify-content-left">
+      <div class="col-12 col-md-10 col-lg-10">
+
+        <!-- Card-like wrapper with responsive padding and shadow -->
+        <div class="bg-grey rounded-4 shadow-sm p-4 p-md-5 border-start border-4 border-primary">
+          
+          <!-- Title (kept as <h1> per your request) -->
+          <h1 class="h3 fw-bold mb-3 text-center text-md-start">
+            What we are?
+          </h1>
+
+          <!-- Paragraph (kept as <p> per your request) -->
+          <p class="lead text-dark text-center text-md-start" style="line-height:1.6;">
+            Welcome to <strong>Page and Pillow</strong>, founded in 2025 by Santosh and our passionate team at <em>The Minimalist Readers</em>. Based in Gujarat, India, we believe books are the best replacement for endless 
+            scrolling on social media apps. Our mission is simple: to inspire mindful reading 
+            and bring depth back into everyday life. With a minimalist approach we curate each 
+            title intentionally — every book must offer knowledge, practical experience, or both.
+             We believe knowledge needs learning and experience needs practice — 
+             books are the companions that provide both.
+          </p>
+
+        </div>
+        
+        <!-- small meta row for mobile-friendly quick facts (optional) -->
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Our Mission Section -->
+<section class="py-5 bg-white">
+  <div class="container text-end">
+    <div class="row justify-content-right">
+      <div class="col-12 col-md-10 col-lg-12">
+
+        <!-- Card-like wrapper -->
+        <div class="bg-light rounded-4 shadow-sm p-4 p-md-5 border-end border-4 border-success">
+          <!-- Title -->
+          <h1 class="h3 fw-bold mb-3 text-center text-md-end">
+            Our Mission
+          </h1>
+
+          <!-- Description -->
+          <p class="lead text-dark mb-0 text-center text-md-start" style="line-height:1.6;">
+            At <strong>Page and Pillow</strong>, our mission is to create a space where
+             readers can discover carefully chosen books without distractions. In a world 
+             overflowing with noise and endless scrolling, we believe in a <em>minimal
+               but powerful design</em> — one that puts books at the center. 
+               Every feature on our website is crafted to make exploration simple, 
+               meaningful, and enjoyable. Here, users will find more than books — they 
+               will find knowledge, inspiration, and the quiet joy of mindful reading.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  
+  <!-- Book Categories Section -->
+  <section class="py-5" style="background-color: #f9f7f1;">
+    <div class="container">
+      <h2 class="text-center mb-5 fw-light fs-1">Book Categories</h2>
+      <div class="row text-center g-4">
+
+        <!-- Fiction -->
+        <div class="col-lg-3 col-md-6">
+          <a href="fiction.html" class="text-decoration-none">
+            <div class="category-box" style="background-image: url('./home_category_images/fiction.jpg');">
+              <div class="overlay">
+                <h5>Fiction</h5>
+                <p>Captivating stories & novels.</p>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <!-- Non-Fiction -->
+        <div class="col-lg-3 col-md-6">
+          <a href="nonFiction.html" class="text-decoration-none">
+            <div class="category-box" style="background-image: url('./home_category_images/nonFiction.jpg');">
+              <div class="overlay">
+                <h5>Non-Fiction</h5>
+                <p>Biographies, self-help & history.</p>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <!-- Self-help -->
+        <div class="col-lg-3 col-md-6">
+          <a href="selfImprovement.html" class="text-decoration-none">
+            <div class="category-box" style="background-image: url('./home_category_images/selfImprovement.jpeg');">
+              <div class="overlay">
+                <h5>Self-help Books</h5>
+                <p>Life improvement & wellness</p>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <!-- Science -->
+        <div class="col-lg-3 col-md-6">
+          <a href="science.html" class="text-decoration-none">
+            <div class="category-box" style="background-image: url('./home_category_images/science.png');">
+              <div class="overlay">
+                <h5>Science & Tech</h5>
+                <p>Innovation & discovery.</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <h1 class="fw-light fs-1 text-center mb-5">Featured books of the week</h1>
+
+<div id="carouselExampleCaptions" class="carousel slide">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="./derrick-cooper-L505cPnmIds-unsplash.jpg" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>First slide label</h5>
+        <p>Some representative placeholder content for the first slide.</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="./sven-duss-JpBbKZaiMHM-unsplash.jpg" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Second slide label</h5>
+        <p>Some representative placeholder content for the second slide.</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="./wes-hicks-FnaiTxmOHhA-unsplash.jpg" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Third slide label</h5>
+        <p>Some representative placeholder content for the third slide.</p>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+<h1 class="fs-1 fw-light text-center mt-5 mb-5">What people think about books??</h1>
+<div class="container my-4">
+  <div class="row justify-content-center g-4">
+    
+    <!-- Quote 1 -->
+    <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-center">
+      <div class="card border-primary" style="max-width: 75%;">
+        <div class="card-body text-primary">
+          <p class="card-text fst-italic">“A mind needs books as a sword needs a whetstone.”</p>
+          <h5 class="card-title mt-3 text-end">— Will Smith as Chris Gardner, The Pursuit of Happyness</h5>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quote 2 -->
+    <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-center">
+      <div class="card border-success" style="max-width: 75%;">
+        <div class="card-body text-success">
+          <p class="card-text fst-italic">“Books are the treasured wealth of the world and the fit inheritance of generations and nations.”</p>
+          <h5 class="card-title mt-3 text-end">— Meryl Streep as Clarisse, The Giver</h5>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quote 3 -->
+    <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-center">
+      <div class="card border-danger" style="max-width: 75%;">
+        <div class="card-body text-danger">
+          <p class="card-text fst-italic">“The more that you read, the more things you will know. The more that you learn, the more places you’ll go.”</p>
+          <h5 class="card-title mt-3 text-end">— Emma Stone as Olive Penderghast, Easy A</h5>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+<h1 class="fs-1 fw-light text-center mt-5 mb-5" id="best-sellers">Best Sellers</h1>
+<div class="container my-4">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
+    <!-- Card 1 -->
+    <div class="col">
+      <div class="card h-100 text-center">
+        <img src="./home_books/To_Kill_a_Mockingbird_first_edition_cover.jpg" 
+             class="card-img-top img-fluid" 
+             alt="To Kill a Mockingbird"
+             style="height: 350px; object-fit: cover;">
+        <div class="card-body">
+          <h5 class="card-title">To Kill a Mockingbird</h5>
+          <p class="card-text">A classic novel exploring themes of justice and morality and much more to explore.</p>
+          <a href="#" class="btn btn-outline-danger btn">Buy Now</a>
+          <a href="#" class="btn btn-outline-success btn">Add to Cart</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="col">
+      <div class="card h-100 text-center">
+        <img src="./home_books/alchemist.jpg" 
+             class="card-img-top img-fluid" 
+             alt="Book 2"
+             style="height: 350px; object-fit: cover;">
+        <div class="card-body">
+          <h5 class="card-title">The Alchemist</h5>
+          <p class="card-text">A magical story about following your dreams and listening to your heart in tough times.</p>
+          <a href="#" class="btn btn-outline-danger btn">Buy Now</a>
+          <a href="#" class="btn btn-outline-success btn">Add to Cart</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="col">
+      <div class="card h-100 text-center">
+        <img src="./home_books/rich_dad.jpg" 
+             class="card-img-top img-fluid" 
+             alt="Book 3"
+             style="height: 350px; object-fit: cover;">
+        <div class="card-body">
+          <h5 class="card-title">Rich Dad Poor Dad</h5>
+          <p class="card-text">“A guide to financial education and building wealth through smart money habits.”</p>
+          <a href="#" class="btn btn-outline-danger btn">Buy Now</a>
+          <a href="#" class="btn btn-outline-success btn">Add to Cart</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="col">
+      <div class="card h-100 text-center">
+        <img src="./home_books/atomic_habits.jpg" 
+             class="card-img-top img-fluid" 
+             alt="Book 4"
+             style="height: 350px; object-fit: cover;">
+        <div class="card-body">
+          <h5 class="card-title">Atomic Habits</h5>
+          <p class="card-text">“Proven strategies to build good habits, break bad ones, and achieve lasting success.”</p>
+          <a href="#" class="btn btn-outline-danger btn">Buy Now</a>
+          <a href="#" class="btn btn-outline-success btn">Add to Cart</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container my-5">
+  <h2 class="text-center mb-4 fw-light text-info" style="font-size: 4rem;">Quote of the Moment</h2>
+  <div id="quote-card" class="quote-card p-5 text-center mx-auto" style="max-width: 600px; min-height: 250px;">
+    <p id="quote-text" class="fw-light" style="font-size: 2.2rem; transition: opacity 0.4s;">“It always seems impossible until it’s done.”</p>
+    <small id="quote-author" class="fw-bold" style="font-size: 1.5rem; transition: opacity 0.4s;">- Nelson Mandela</small>
+  </div>
+</div>
+
+<div style="height: 80px;"></div> 
+
+<footer class="bg-light text-dark pt-5 pb-3">
+  <div class="container">
+    <div class="row">
+      <!-- About -->
+      <div class="col-md-4 mb-3">
+        <h5>About Us</h5>
+        <p>We’re a passionate bookstore bringing you the best sellers, timeless classics, and inspiring reads from around the world.</p>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="col-md-2 mb-3">
+        <h5>Quick Links</h5>
+        <ul class="list-unstyled">
+          <li><a href="#" class="text-decoration-none text-dark">Home</a></li>
+          <li><a href="#" class="text-decoration-none text-dark">About Us</a></li>
+          <li><a href="#" class="text-decoration-none text-dark">Categories</a></li>
+          <li><a href="#" class="text-decoration-none text-dark">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div class="col-md-3 mb-3">
+        <h5>Contact</h5>
+        <p>Email: info@bookstore.com</p>
+        <p>Phone: +91 12345 67890</p>
+        <p>Address: 123 Main Street, Vadodara, Gujarat</p>
+      </div>
+
+      <!-- Social Media -->
+      <div class="col-md-3 mb-3">
+        <h5>Follow Us</h5>
+        <div class="d-flex flex-column gap-3">
+          <a href="#" class="text-dark fs-6 text-decoration-none">Facebook</a>
+          <a href="#" class="text-dark fs-6 text-decoration-none">X</a>
+          <a href="#" class="text-dark fs-6 text-decoration-none">Instagram</a>
+          <a href="#" class="text-dark fs-6 text-decoration-none">Linkdn</a>
+        </div>
+      </div>
+    </div>
+
+    <hr class="my-3">
+    <div class="text-center">
+      <p class="mb-0">&copy; 2025 Your Bookstore. All Rights Reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- 👇 Moved: load bootstrap JS here (was previously placed near top of the body) -->
+<script src="./js/bootstrap.js"></script>
+
+<!-- 👇 NOTE: place the new script.js file (contents shown below) at the project root as script.js -->
+<script src="script.js"></script>
+
+</body>
+</html>
+
+
