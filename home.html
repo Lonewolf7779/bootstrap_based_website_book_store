@@ -293,20 +293,53 @@
     </div>
 
     <!-- Card 2 -->
-    <div class="col">
-      <div class="card h-100 text-center">
-        <img src="./home_books/alchemist.jpg" 
-             class="card-img-top img-fluid" 
-             alt="Book 2"
-             style="height: 350px; object-fit: cover;">
-        <div class="card-body">
-          <h5 class="card-title">The Alchemist</h5>
-          <p class="card-text">A magical story about following your dreams and listening to your heart in tough times.</p>
-          <a href="#" class="btn btn-outline-danger btn">Buy Now</a>
-          <a href="#" class="btn btn-outline-success btn">Add to Cart</a>
+<div class="col">
+  <div class="card h-100 text-center">
+    <img src="./home_books/alchemist.jpg" 
+         class="card-img-top img-fluid" 
+         alt="Book 2"
+         style="height: 350px; object-fit: cover;">
+    <div class="card-body">
+      <h5 class="card-title">The Alchemist</h5>
+      <p class="card-text">A magical story about following your dreams and listening to your heart in tough times.</p>
+      <!-- Trigger Modal -->
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#alchemistModal">
+        View Details
+      </button>
+    </div>
+  </div>
+</div>
+<!-- Modal for The Alchemist -->
+<div class="modal fade" id="alchemistModal" tabindex="-1" aria-labelledby="alchemistModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-center">
+    <div class="modal-content">
+      
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title" id="alchemistModalLabel">The Alchemist</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      
+      <!-- Modal Body -->
+      <div class="modal-body d-flex flex-column flex-md-row gap-3">
+        <img src="./home_books/alchemist.jpg" class="img-fluid" style="width:200px; height:auto;" alt="Book Cover">
+        <div>
+          <p><strong>Author:</strong> Paulo Coelho</p>
+          <p><strong>Price:</strong> $15.99</p>
+          <p><strong>Rating:</strong> ⭐⭐⭐⭐</p>
+          <p><strong>Description:</strong> A magical story about following your dreams and listening to your heart in tough times.</p>
         </div>
       </div>
+      
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success">Add to Cart</button>
+        <button type="button" class="btn btn-primary">Buy Now</button>
+      </div>
+      
     </div>
+  </div>
+</div>
 
     <!-- Card 3 -->
     <div class="col">

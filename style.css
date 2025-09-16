@@ -165,7 +165,7 @@ body {
 }
 
 /* Dot & expanded state */
-#searchBar.dot { width: 20px; height: 20px; opacity: 1; border-radius: 50%; background: #007bff; }
+#searchBar.dot { width: 20px; height: 20px; opacity: 1; border-radius: 50%; background: #fbfcfc; }
 #searchBar.expanded {
   width: 60%;
   height: 40px;
@@ -174,14 +174,20 @@ body {
   border: 3px solid #fbfcfd;
   padding: 0 15px;
   text-indent: 0;
-  color: rgb(245, 242, 242);
+  color:white;
   opacity: 1;
   cursor: text;
+}
+/* Placeholder text color */
+#searchBar::placeholder {
+  color: #f9fbfc; /* change to any color you want */
+  opacity: 1; /* ensures color is fully visible */
+  text-align: center;
 }
 
 /* Go Button */
 #goBtn { display: none; opacity: 0; transition: opacity 0.3s; }
-#searchBar.expanded + #goBtn { display: inline-block; opacity: 1; }
+#searchBar.expanded + #goBtn { display: inline-block; opacity: 1; color: white;}
 
 /* Suggestions Dropdown */
 #suggestions {
@@ -204,3 +210,12 @@ body {
   z-index: 1060;
 }
 #suggestions.show { opacity: 1; pointer-events: auto; }
+
+/* Custom modal background */
+.modal-content {
+ background: linear-gradient(135deg, #f58529, #dd2a7b, #8134af, #515bd4);
+  color: #fff; /* white text to pop against the gradient */
+  border-radius: 15px;
+  border: none;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
