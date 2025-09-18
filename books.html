@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explore Books</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="books.css">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav id="mainNavbar" class="navbar navbar-expand-lg navbar-dark bg-transparent fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand fs-4 fw-light text-white" href="home.html">Page & Pillow</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-4 text-center">
+        <li class="nav-item"><a class="nav-link text-white fs-5 fw-light" href="#about-us">About us</a></li>
+        <li class="nav-item"><a class="nav-link text-white fs-5 fw-light" href="#">Books</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white fs-5 fw-light" href="#" id="navbarDropdown" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false">Category</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Fiction</a></li>
+            <li><a class="dropdown-item" href="#">Non-Fiction</a></li>
+            <li><a class="dropdown-item" href="#">Self-help</a></li>
+            <li><a class="dropdown-item" href="#">Science & Tech</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link text-white fs-5 fw-light" href="#best-sellers">Best Sellers</a></li>
+      </ul>
+
+      <ul class="navbar-nav ms-auto text-center align-items-center">
+        <li class="nav-item me-3">
+          <a class="nav-link text-white fs-5 fw-light" href="#" id="toggleSearch">Search</a>
+        </li>
+        <li class="nav-item me-3"><a class="nav-link text-white fs-5 fw-light" href="#">Cart</a></li>
+        <li class="nav-item"><a class="nav-link text-white fs-5 fw-light" href="#">Sign in</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Search Wrapper (Overlay) -->
+<div id="searchWrapper">
+  <input type="text" id="searchBar" placeholder="Search books...">
+  <button class="btn btn-primary" id="goBtn">Go</button>
+  <div id="suggestions"></div>
+</div>
+
+<!-- Offcanvas Filters -->
+<button class="btn btn-primary m-3 float-end" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasFilters">
+  Filters
+</button>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasFilters">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title">Filter Books</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+  </div>
+  <div class="offcanvas-body">
+    <h6>Categories</h6>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="fiction" id="fiction">
+      <label class="form-check-label" for="fiction">Fiction</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="nonfiction" id="nonfiction">
+      <label class="form-check-label" for="nonfiction">Non-fiction</label>
+    </div>
+    <hr>
+    <h6>Price</h6>
+    <input type="range" class="form-range" min="0" max="500" step="10" id="priceRange">
+  </div>
+</div>
+
+<!-- Books Grid -->
+<div class="container my-5">
+  <div class="row" id="booksContainer">
+    <!-- JS will populate cards here -->
+  </div>
+
+  <!-- Pagination -->
+  <nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center mt-4" id="pagination">
+      <!-- JS will populate pagination -->
+    </ul>
+  </nav>
+</div>
+
+<!-- Toast Notification -->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+  <div id="cartToast" class="toast align-items-center text-bg-success border-0" role="alert">
+    <div class="d-flex">
+      <div class="toast-body">Book added to cart!</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="books.js"></script>
+</body>
+</html>
