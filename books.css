@@ -1,24 +1,24 @@
-body{
-    padding-top:9%;
-}
+/* =========================
+   books.css
+   Custom styles for books.html
+   ========================= */
 
-/* Navbar scroll effect */
+/* Navbar transparent until scrolled */
 #mainNavbar {
-    transition: background-color .35s ease, box-shadow .35s ease;
-    background-color: rgba(0,0,0,0.95) !important;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  transition: background-color 0.4s ease;
+  margin-bottom: 200px;
 }
-
 #mainNavbar.scrolled {
-    background-color: rgba(0,0,0,0.95) !important;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  background-color: rgba(0, 0, 0, 0.85) !important;
+}
+/* Add enough top padding to body so search and cards don't overlap navbar */
+body {
+    padding-top: 100px; /* increase from 9% to ~100px for smoother effect */
 }
 
-#mainNavbar.scrolled .navbar-collapse {
-    background-color: rgba(0,0,0,0.95);
-}
-
-/* Search Wrapper */
+/* =========================
+   Search Wrapper
+   ========================= */
 #searchWrapper {
     display: flex;
     justify-content: center;
@@ -26,113 +26,245 @@ body{
     gap: 8px;
     padding: 15px;
     position: absolute;
-    top: 70px;
-    left: 0;
-    width: 100%;
+    top: 90px;  /* below navbar */
+    left: 50%;
+    transform: translate(-50%, -20px); /* center horizontally */
     min-height: 60px;
-    transform: translateY(-20px);
     opacity: 0;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    z-index: 1060; /* below offcanvas */
-    pointer-events: none; /* prevent blocking offcanvas */
+    transition: transform 0.4s ease, opacity 0.4s ease;
+    z-index: 1100;
+    pointer-events: none;
+    background: transparent;
 }
 
-#searchWrapper.show {
-    transform: translateY(0);
+/* Active/open state */
+#searchWrapper.active {
     opacity: 1;
-    pointer-events: auto; /* enable interaction only when visible */
+    transform: translate(-50%, 0);
+    pointer-events: auto;
 }
 
+/* =========================
+   Search Bar
+   ========================= */
 #searchBar {
-    width: 0;
-    height: 0;
-    opacity: 0;
-    border: none;
-    outline: none;
-    border-radius: 50%;
-    background: #000309;
-    transition: all 0.6s cubic-bezier(0.25,1,0.3,1);
-    text-indent: -9999px;
-    cursor: pointer;
-}
-
-#searchBar.dot { 
-    width: 20px; height: 20px; opacity: 1; border-radius: 50%; background: #fbfcfc; 
-}
-
-#searchBar.expanded {
-    width: 60%;
+    width: 500px;
+    max-width: 90%;   /* responsive for mobile */
     height: 40px;
     border-radius: 25px;
-    background: transparent;
-    border: 3px solid #00060b;
+    border: none;
+    outline: none;
     padding: 0 15px;
-    text-indent: 0;
-    color: rgb(8, 0, 0);
-    opacity: 1;
+    background: #ffffff;  /* black background */
+    color: #fff;
+    box-shadow: none;
     cursor: text;
+    transition: all 0.3s ease;
 }
 
-#goBtn { display: none; opacity: 0; transition: opacity 0.3s; }
-#searchBar.expanded + #goBtn { display: inline-block; opacity: 1; color: white; }
+/* Expanded state */
+#searchBar.expanded {
+    width: 500px !important; /* fixed width */
+    max-width: 500px;
+    height: 40px;
+    border-radius: 25px;
+    background: #ffffff;   /* keep black */
+    border: 2px solid black;       /* remove border to prevent white line */
+    color: #000;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2); /* subtle shadow */
+}
 
+/* Remove browser focus outlines */
+#searchBar:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+/* Optional "dot" style */
+#searchBar.dot {
+    width: 20px;
+    height: 20px;
+    opacity: 1;
+    border-radius: 50%;
+    background: #000;
+}
+
+/* =========================
+   Suggestions
+   ========================= */
 #suggestions {
     position: absolute;
-    top: 55px;
+    top: 100%;                 /* right below input */
     left: 50%;
     transform: translateX(-50%);
-    display: flex;
-    gap: 10px;
-    max-width: 80%;
-    overflow-x: auto;
-    background: #fff;
-    border: 1px solid #fefeff;
-    border-radius: 10px;
-    padding: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-    z-index: 1065; /* just above searchWrapper */
+    background: #ffffff;           /* match search bar */
+    width: 90%;
+    max-width: 400px;
+    max-height: 220px;
+    overflow-y: auto;
+    border-radius: 0.5rem;
+    margin-top: 0.3rem;
+    z-index: 1200;              /* above cards */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
-#suggestions.show { opacity: 1; pointer-events: auto; }
+/* Individual suggestion item */
+#suggestions div {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    background: #fff;
+    color: #000000;
+    transition: background 0.2s;
+}
 
-/* Book Cards */
-.book-card {
-    transition: transform 0.3s, box-shadow 0.3s;
+#suggestions div:hover,
+#suggestions div:focus {
+    background: #e6bebe;  /* subtle hover */
+    outline: none;
+}
+
+/* Show suggestions */
+#suggestions.show {
+    transform: translateY(0);
+}
+
+/* =========================
+   Input & Button inside wrapper
+   ========================= */
+#searchWrapper input {
+    flex: 1;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 25px;
+    background: #000;
+    color: #fff;
+    outline: none;
+}
+
+#searchWrapper button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 25px;
+    background: #333;
+    color: #fff;
     cursor: pointer;
 }
-.book-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+
+/* Book cards */
+#booksContainer .card {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  border: none;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
 }
-.book-card img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 8px;
+#booksContainer .card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+}
+#booksContainer img {
+  height: 280px;
+  object-fit: cover;
+  border-bottom: 1px solid #eee;
+}
+.card-body {
+  padding: 0.75rem;
+}
+.card-title {
+  font-size: 1rem;
+  font-weight: 600;
+}
+.card-price {
+  color: #28a745;
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
-/* Modal background themed */
+/* Modal customizations */
 .modal-content {
-    background: linear-gradient(135deg, #f58529, #dd2a7b, #8134af, #515bd4);
-    color: white;
-    border-radius: 15px;
-    border: none;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+.modal-header {
+  border-bottom: none;
+  color: #fff;
+}
+.modal-body img {
+  max-width: 180px;
+  border-radius: 0.5rem;
+}
+.modal-body .details {
+  flex: 1;
+  padding-left: 1rem;
+}
+.modal-body p {
+  margin-bottom: 0.5rem;
 }
 
-/* Offcanvas Fixes */
-.offcanvas {
-    z-index: 1070 !important; /* above navbar and search wrapper */
+/* Offcanvas filter tweaks */
+.offcanvas h6 {
+  margin-top: 1rem;
+  font-weight: 600;
+}
+.offcanvas .form-check-label {
+  cursor: pointer;
 }
 
-/* Ensure offcanvas button clickable */
-button[data-bs-toggle="offcanvas"] {
-    position: relative;
-    z-index: 1080;
-    position: relative;   /* allows top to move the button */
-    top: 35px;      
+/* Cart offcanvas */
+#cartItems .cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+#cartItems img {
+  width: 50px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 0.25rem;
+}
+#cartItems .cart-info {
+  flex: 1;
+  margin-left: 0.75rem;
+}
+#cartItems .remove-btn {
+  border: none;
+  background: none;
+  color: red;
+  font-size: 1.2rem;
+  cursor: pointer;
 }
 
+/* Toasts */
+.toast {
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* Footer */
+footer {
+  margin-top: 4rem;
+}
+footer h5 {
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive tweaks */
+@media (max-width: 576px) {
+  #booksContainer img {
+    height: 200px;
+  }
+  .modal-body {
+    flex-direction: column;
+    text-align: center;
+  }
+  .modal-body .details {
+    padding-left: 0;
+    margin-top: 1rem;
+  }
+}
