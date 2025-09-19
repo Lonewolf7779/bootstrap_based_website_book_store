@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page & Pillow - Login</title>
+  <link rel="stylesheet" href="./css/bootstrap.css">
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+
+  const loginForm = document.getElementById("loginForm");
+  const userInput = document.getElementById("username");
+  const passInput = document.getElementById("password");
+  const userError = document.getElementById("userError");
+  const passError = document.getElementById("passError");
+  const successMsg = document.getElementById("successMsg");
+
+  // Navbar update
+  const loggedUser = localStorage.getItem("loggedInUser");
+  if (loggedUser) {
+    document.getElementById("signInLink").textContent = "Welcome " + loggedUser;
+  }
+
+  loginForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    userError.style.display = "none";
+    passError.style.display = "none";
+    successMsg.style.display = "none";
+
+    const username = userInput.value.trim();
+    const password = passInput.value;
+
+    let valid = true;
+    if(!username){ userError.style.display="block"; valid=false; }
+    if(!password){ passError.style.display="block"; valid=false; }
+    if(!valid) return;
+
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
+    const user = users.find(u => u.username === username && u.password === password);
+
+    if(user){
+      localStorage.setItem("loggedInUser", username);
+      successMsg.style.display="block";
+      setTimeout(() => {
+        window.location.href = "books.html";
+      }, 1200);
+    } else {
+      alert("Invalid username or password!");
+    }
+  });
+});
+
+</script>
+  <!-- ===== NAVBAR (from books.html) ===== -->
+  <nav id="mainNavbar" class="navbar navbar-expand-lg navbar-dark bg-transparent fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand fs-4 fw-light text-dark" href="home.html">Page & Pillow</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-4 text-center">
+          <li class="nav-item"><a class="nav-link text-dark fs-5 fw-light" href="home.html#about-us">About us</a></li>
+          <li class="nav-item"><a class="nav-link text-dark fs-5 fw-light" href="books.html">Books</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-dark fs-5 fw-light" href="#" id="navbarDropdown" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false">Category</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Fiction</a></li>
+              <li><a class="dropdown-item" href="#">Non-Fiction</a></li>
+              <li><a class="dropdown-item" href="#">Self-Help</a></li>
+              <li><a class="dropdown-item" href="#">Science & Tech</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link text-dark fs-5 fw-light" href="home.html#best-sellers">Best Sellers</a></li>
+        </ul>
+        <ul class="navbar-nav ms-auto text-center align-items-center">
+          <li class="nav-item me-3">
+            <a class="nav-link text-dark fs-5 fw-light" href="books.html#searchSection">Search</a>
+          </li>
+          <li class="nav-item me-3">
+            <a class="nav-link text-dark fs-5 fw-light" href="books.html#offcanvasCart">Cart <span id="cartCount" class="badge bg-dark ms-1">0</span></a>
+          </li>
+          <li class="nav-item" id="loginNav"><a class="nav-link text-dark fs-5 fw-light" href="login.html" id="signInLink">Sign in</a></li>
+          <li class="nav-item d-none" id="welcomeUser"><a class="nav-link text-dark fs-5 fw-light" href="#">Welcome, <span id="usernameDisplay"></span></a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== Login Card ===== -->
+  <div class="login-container">
+    <div class="login-card">
+      <h2 class="login-title">Sign in to your account</h2>
+
+      <form id="loginForm" novalidate>
+        <div class="form-group">
+          <input type="text" id="username" required>
+          <label for="username">Username</label>
+          <span class="error" id="userError">Please enter username.</span>
+        </div>
+
+        <div class="form-group">
+          <input type="password" id="password" required>
+          <label for="password">Password</label>
+          <span class="error" id="passError">Please enter password.</span>
+        </div>
+
+        <button type="submit" class="btn-login">Login</button>
+        <span class="success" id="successMsg">Login successful! Redirecting...</span>
+      </form>
+
+      <p class="register-text">New here? <a href="register.html">Create an account</a></p>
+    </div>
+  </div>
+
+  <script src="./js/bootstrap.js"></script>
+  <script src="login.js"></script>
+</body>
+</html>

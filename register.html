@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page & Pillow — Register</title>
+  <link rel="stylesheet" href="./css/bootstrap.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f7f7f7;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Navbar matches books.html */
+    .navbar-brand, .nav-link {
+      color: #000 !important;
+      font-weight: 300;
+    }
+    .nav-link.active {
+      font-weight: 500;
+    }
+
+    /* Centered card container */
+    .register-card {
+      max-width: 600px;
+      margin: 6rem auto 3rem;
+      background: #fff;
+      padding: 3rem;
+      border-radius: 1rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .register-card h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-weight: 400;
+    }
+
+    /* Form fields */
+    .form-control {
+      border-radius: 0.5rem;
+      border: 1px solid #ccc;
+      padding: 0.8rem;
+      font-size: 1rem;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: #000;
+      box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    }
+
+    .error {
+      color: red;
+      font-size: 0.85rem;
+      display: none;
+      margin-top: 0.25rem;
+    }
+
+    .success {
+      color: green;
+      font-size: 1rem;
+      display: none;
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+
+    /* Split fields */
+    .row-cols-2 > .col {
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.8rem;
+      font-size: 1rem;
+      border-radius: 0.5rem;
+      border: 1px solid #000;
+      background: #000;
+      color: #fff;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #fff;
+      color: #000;
+      border: 1px solid #000;
+    }
+
+    a {
+      color: #000;
+      text-decoration: none;
+      display: block;
+      text-align: center;
+      margin-top: 1rem;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav id="mainNavbar" class="navbar navbar-expand-lg navbar-dark bg-transparent fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand fs-4 fw-light text-dark" href="home.html">Page & Pillow</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-4 text-center">
+          <li class="nav-item"><a class="nav-link text-dark fs-5 fw-light" href="home.html#about-us">About us</a></li>
+          <li class="nav-item"><a class="nav-link text-dark fs-5 fw-light" href="books.html">Books</a></li>
+          <li class="nav-item"><a class="nav-link text-dark fs-5 fw-light" href="home.html#best-sellers">Best Sellers</a></li>
+        </ul>
+        <ul class="navbar-nav ms-auto text-center align-items-center">
+          <li class="nav-item me-3"><a class="nav-link text-dark fs-5 fw-light" href="login.html" id="signInLink">Sign in</a></li>
+          <li class="nav-item d-none" id="welcomeUser"><a class="nav-link text-dark fs-5 fw-light" href="#">Welcome, <span id="usernameDisplay"></span></a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Register Card -->
+  <div class="register-card">
+    <h2>Create Account</h2>
+    <form id="registerForm">
+      <div class="row row-cols-2 g-3">
+        <div class="col">
+          <input type="text" id="firstName" placeholder="First Name" class="form-control">
+          <span id="firstNameError" class="error">Enter a valid first name</span>
+        </div>
+        <div class="col">
+          <input type="text" id="lastName" placeholder="Last Name" class="form-control">
+          <span id="lastNameError" class="error">Enter a valid last name</span>
+        </div>
+      </div>
+
+      <div class="mt-3">
+        <input type="text" id="username" placeholder="Username" class="form-control">
+        <span id="usernameError" class="error">Username must be 3+ chars, no special chars</span>
+      </div>
+
+      <div class="mt-3">
+        <input type="email" id="email" placeholder="Email" class="form-control">
+        <span id="emailError" class="error">Enter a valid email</span>
+      </div>
+
+      <div class="row row-cols-2 g-3 mt-3">
+        <div class="col">
+          <input type="password" id="password" placeholder="Password" class="form-control">
+          <span id="passError" class="error">8+ chars, uppercase, number & special char</span>
+        </div>
+        <div class="col">
+          <input type="password" id="confirmPassword" placeholder="Confirm Password" class="form-control">
+          <span id="confirmError" class="error">Passwords do not match</span>
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <button type="button" id="registerBtn">Register</button>
+        <span id="successMsg" class="success">Registration successful! Redirecting...</span>
+      </div>
+
+      <a href="login.html">Already have an account? Sign in</a>
+    </form>
+  </div>
+
+  <script src="./js/bootstrap.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // update navbar if already logged in
+      const loggedUser = sessionStorage.getItem("currentUser");
+      if (loggedUser) {
+        document.getElementById("signInLink").classList.add("d-none");
+        document.getElementById("welcomeUser").classList.remove("d-none");
+        document.getElementById("usernameDisplay").textContent = loggedUser;
+      }
+
+      const form = document.getElementById("registerForm");
+      form.addEventListener("click", (e) => e.preventDefault()); // prevent submit
+
+      document.getElementById("registerBtn").addEventListener("click", () => {
+        // Get values
+        const firstName = document.getElementById("firstName").value.trim();
+        const lastName = document.getElementById("lastName").value.trim();
+        const username = document.getElementById("username").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
+
+        // Reset errors
+        document.querySelectorAll(".error").forEach(e => e.style.display = "none");
+        let valid = true;
+
+        const namePattern = /^[A-Za-z]+$/;
+        if (!namePattern.test(firstName) || firstName.length < 2) { 
+          document.getElementById("firstNameError").style.display = "block"; valid = false; 
+        }
+        if (!namePattern.test(lastName) || lastName.length < 2) { 
+          document.getElementById("lastNameError").style.display = "block"; valid = false; 
+        }
+        const usernamePattern = /^[A-Za-z0-9]{3,}$/;
+        if (!usernamePattern.test(username)) { 
+          document.getElementById("usernameError").style.display = "block"; valid = false; 
+        }
+        const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,}$/;
+        if (!emailPattern.test(email)) { 
+          document.getElementById("emailError").style.display = "block"; valid = false; 
+        }
+        const passPattern = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
+        if (!passPattern.test(password)) { 
+          document.getElementById("passError").style.display = "block"; valid = false; 
+        }
+        if (password !== confirmPassword) { 
+          document.getElementById("confirmError").style.display = "block"; valid = false; 
+        }
+
+        if (!valid) return;
+
+        // Save to localStorage/sessionStorage
+        const users = JSON.parse(localStorage.getItem("users") || "[]");
+        if (users.find(u => u.username === username)) { alert("Username exists!"); return; }
+        if (users.find(u => u.email === email)) { alert("Email already registered!"); return; }
+
+        users.push({ firstName, lastName, username, email, password });
+        localStorage.setItem("users", JSON.stringify(users));
+        sessionStorage.setItem("currentUser", username);
+
+        document.getElementById("successMsg").style.display = "block";
+
+        setTimeout(() => { window.location.href = "books.html"; }, 1200);
+      });
+    });
+  </script>
+</body>
+</html>
