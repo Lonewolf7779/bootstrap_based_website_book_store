@@ -11,50 +11,131 @@
 <body>
   <!-- 👇 Changed: added id="mainNavbar" so JS can target the navbar -->
   <!-- Navbar stays the same -->
- <nav id="mainNavbar" class="navbar navbar-expand-lg navbar-dark bg-transparent fixed-top">
-    <div class="container-fluid">
-      <a class="navbar-brand fs-4 fw-light text-white" href="#">Page & Pillow</a>
+<nav id="mainNavbar" class="navbar navbar-expand-lg navbar-dark bg-transparent fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand fs-4 fw-light text-white" href="#">Page & Pillow</a>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-        aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-4 text-center">
-          <li class="nav-item"><a class="nav-link text-white fs-5 fw-light" href="#about-us">About us</a></li>
-          <li class="nav-item"><a class="nav-link text-white fs-5 fw-light" href="#">Books</a></li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-white fs-5 fw-light" href="#" id="navbarDropdown" role="button"
-              data-bs-toggle="dropdown" aria-expanded="false">Category</a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Fiction</a></li>
-              <li><a class="dropdown-item" href="#">Non-Fiction</a></li>
-              <li><a class="dropdown-item" href="#">Self-help</a></li>
-              <li><a class="dropdown-item" href="#">Science & Tech</a></li>
-            </ul>
-          </li>
-          <li class="nav-item"><a class="nav-link text-white fs-5 fw-light" href="#best-sellers">Best Sellers</a></li>
-        </ul>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-4 text-center">
+        <li class="nav-item"><a class="nav-link text-white fs-5 fw-light" href="#about-us">About us</a></li>
+        <li class="nav-item"><a class="nav-link text-white fs-5 fw-light" href="books.html">Books</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white fs-5 fw-light" href="#" id="navbarDropdown" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false">Category</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Fiction</a></li>
+            <li><a class="dropdown-item" href="#">Non-Fiction</a></li>
+            <li><a class="dropdown-item" href="#">Self-help</a></li>
+            <li><a class="dropdown-item" href="#">Science & Tech</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link text-white fs-5 fw-light" href="#best-sellers">Best Sellers</a></li>
+      </ul>
 
-        <ul class="navbar-nav ms-auto text-center align-items-center">
-          <li class="nav-item me-3">
-            <a class="nav-link text-white fs-5 fw-light" href="#" id="toggleSearch">Search</a>
-          </li>
-          <li class="nav-item me-3"><a class="nav-link text-white fs-5 fw-light" href="#">Cart</a></li>
-          <li class="nav-item"><a class="nav-link text-white fs-5 fw-light" href="login.html">Sign in</a></li>
-        </ul>
+      <ul class="navbar-nav ms-auto text-center align-items-center">
+        <li class="nav-item me-3">
+          <a class="nav-link text-white fs-5 fw-light" href="#" id="toggleSearch">Search</a>
+        </li>
+        <li class="nav-item me-3">
+          <a class="nav-link text-white fs-5 fw-light" href="#" id="cartBtn" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
+            Cart <span id="cartCount" class="badge bg-danger ms-1">0</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a id="navbarUser" class="nav-link text-white fs-5 fw-light" href="login.html">Sign in</a>
+        </li>
+      </ul>
+
+      <!-- Search Bar Wrapper -->
+      <div id="searchWrapper" style="position:absolute; top:70px; right:20px; display:none; flex-direction:column; gap:0.25rem; z-index:1050;">
+        <input type="text" id="searchBar" class="form-control" placeholder="Search books..." style="width:250px;">
+        <button class="btn btn-primary mt-1" id="goBtn">Go</button>
+        <div id="suggestions" class="list-group mt-1"></div>
       </div>
-    </div>
-  </nav>
 
-  <!-- Search Wrapper (Overlay) -->
-  <div id="searchWrapper">
-    <input type="text" id="searchBar" placeholder="Search books...">
-    <button class="btn btn-primary" id="goBtn">Go</button>
-    <div id="suggestions"></div>
+      <!-- Offcanvas Cart -->
+      <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasCart">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title">Your Cart</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="list-group" id="cartItems">
+            <li class="list-group-item text-muted">Your cart is empty</li>
+          </ul>
+          <button id="proceedCheckout" class="btn btn-primary mt-3 w-100">
+            Proceed to Checkout
+            <span id="checkoutSpinner" class="spinner-border spinner-border-sm ms-2 d-none"></span>
+          </button>
+        </div>
+      </div>
+
+    </div>
   </div>
+</nav>
+
+<style>
+  #searchWrapper.active { display: flex; }
+  .suggestion-item { cursor: pointer; padding: 5px; }
+  .suggestion-item:hover { background-color: #f1f1f1; }
+</style>
+
+<script>
+  const toggleSearch = document.getElementById('toggleSearch');
+  const searchWrapper = document.getElementById('searchWrapper');
+  const searchBar = document.getElementById('searchBar');
+  const suggestions = document.getElementById('suggestions');
+  const goBtn = document.getElementById('goBtn');
+
+  // Example books array for suggestions
+  const books = ["The Alchemist","Atomic Habits","Rich Dad Poor Dad","The Power of Habit","Zero to One","Deep Work"];
+
+  // Toggle search bar visibility
+  toggleSearch.addEventListener('click', () => {
+    searchWrapper.classList.toggle('active');
+    searchBar.focus();
+  });
+
+  // Display suggestions as user types
+  searchBar.addEventListener('input', () => {
+    const query = searchBar.value.toLowerCase();
+    suggestions.innerHTML = '';
+    if(query){
+      const filtered = books.filter(book => book.toLowerCase().includes(query));
+      filtered.forEach(book => {
+        const div = document.createElement('div');
+        div.textContent = book;
+        div.classList.add('list-group-item', 'suggestion-item');
+        div.addEventListener('click', () => {
+          searchBar.value = book;
+          suggestions.innerHTML = '';
+        });
+        suggestions.appendChild(div);
+      });
+    }
+  });
+
+  // Go button click
+  goBtn.addEventListener('click', () => {
+    const query = searchBar.value;
+    if(query) alert("Searching for: " + query);
+    suggestions.innerHTML = '';
+  });
+
+  // Close suggestions on click outside
+  document.addEventListener('click', (e) => {
+    if(!searchWrapper.contains(e.target) && e.target !== toggleSearch){
+      searchWrapper.classList.remove('active');
+      suggestions.innerHTML = '';
+    }
+  });
+</script>
 
   <!-- Hero Section -->
   <section class="hero-section d-flex flex-column justify-content-center text-white">
@@ -273,107 +354,270 @@
 
 
 
+<!-- ================= Best Sellers Section ================= -->
 <h1 class="fs-1 fw-light text-center mt-5 mb-5" id="best-sellers">Best Sellers</h1>
+
+<!-- Cart Offcanvas -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCart" aria-labelledby="offcanvasCartLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasCartLabel">Your Cart</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body" id="cartItems">
+    <!-- JS will inject cart items and the Proceed to Checkout button -->
+  </div>
+</div>
+
 <div class="container my-4">
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
-    <!-- Card 1 -->
+
+    <!-- Card 1: To Kill a Mockingbird -->
     <div class="col">
       <div class="card h-100 text-center">
-        <img src="./home_books/To_Kill_a_Mockingbird_first_edition_cover.jpg" 
-             class="card-img-top img-fluid" 
-             alt="To Kill a Mockingbird"
-             style="height: 350px; object-fit: cover;">
+        <img src="./home_books/To_Kill_a_Mockingbird_first_edition_cover.jpg" class="card-img-top img-fluid" alt="To Kill a Mockingbird" style="height: 350px; object-fit: cover;">
         <div class="card-body">
           <h5 class="card-title">To Kill a Mockingbird</h5>
-          <p class="card-text">A classic novel exploring themes of justice and morality and much more to explore.</p>
-          <a href="#" class="btn btn-outline-danger btn">Buy Now</a>
-          <a href="#" class="btn btn-outline-success btn">Add to Cart</a>
+          <p class="card-text">A classic novel exploring themes of justice and morality.</p>
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mockingbirdModal">View Details</button>
         </div>
       </div>
     </div>
 
-    <!-- Card 2 -->
-<div class="col">
-  <div class="card h-100 text-center">
-    <img src="./home_books/alchemist.jpg" 
-         class="card-img-top img-fluid" 
-         alt="Book 2"
-         style="height: 350px; object-fit: cover;">
-    <div class="card-body">
-      <h5 class="card-title">The Alchemist</h5>
-      <p class="card-text">A magical story about following your dreams and listening to your heart in tough times.</p>
-      <!-- Trigger Modal -->
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#alchemistModal">
-        View Details
-      </button>
-    </div>
-  </div>
-</div>
-<!-- Modal for The Alchemist -->
-<div class="modal fade" id="alchemistModal" tabindex="-1" aria-labelledby="alchemistModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-center">
-    <div class="modal-content">
-      
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h5 class="modal-title" id="alchemistModalLabel">The Alchemist</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      
-      <!-- Modal Body -->
-      <div class="modal-body d-flex flex-column flex-md-row gap-3">
-        <img src="./home_books/alchemist.jpg" class="img-fluid" style="width:200px; height:auto;" alt="Book Cover">
-        <div>
-          <p><strong>Author:</strong> Paulo Coelho</p>
-          <p><strong>Price:</strong> $15.99</p>
-          <p><strong>Rating:</strong> ⭐⭐⭐⭐</p>
-          <p><strong>Description:</strong> A magical story about following your dreams and listening to your heart in tough times.</p>
+    <!-- Modal 1 -->
+    <div class="modal fade" id="mockingbirdModal" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-dark text-white">
+            <h5 class="modal-title">To Kill a Mockingbird</h5>
+            <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body d-flex flex-column flex-md-row gap-3">
+            <img src="./home_books/To_Kill_a_Mockingbird_first_edition_cover.jpg" class="img-fluid" style="width:200px;">
+            <div>
+              <p><strong>Author:</strong> Harper Lee</p>
+              <p><strong>Price:</strong> ₹499</p>
+              <p><strong>Rating:</strong> ⭐⭐⭐⭐⭐</p>
+              <p><strong>Description:</strong> A timeless story about racial injustice and moral growth.</p>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-success" onclick="addToCart('To Kill a Mockingbird',499,'./home_books/To_Kill_a_Mockingbird_first_edition_cover.jpg')">Add to Cart</button>
+            <button class="btn btn-primary" onclick="buyNow('To Kill a Mockingbird',499,'./home_books/To_Kill_a_Mockingbird_first_edition_cover.jpg')">Buy Now</button>
+          </div>
         </div>
       </div>
-      
-      <!-- Modal Footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success">Add to Cart</button>
-        <button type="button" class="btn btn-primary">Buy Now</button>
-      </div>
-      
     </div>
-  </div>
-</div>
 
-    <!-- Card 3 -->
+    <!-- Card 2: The Alchemist -->
     <div class="col">
       <div class="card h-100 text-center">
-        <img src="./home_books/rich_dad.jpg" 
-             class="card-img-top img-fluid" 
-             alt="Book 3"
-             style="height: 350px; object-fit: cover;">
+        <img src="./home_books/alchemist.jpg" class="card-img-top img-fluid" alt="The Alchemist" style="height: 350px; object-fit: cover;">
+        <div class="card-body">
+          <h5 class="card-title">The Alchemist</h5>
+          <p class="card-text">A magical story about following your dreams.</p>
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#alchemistModal">View Details</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal 2 -->
+    <div class="modal fade" id="alchemistModal" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content" style="background:linear-gradient(135deg,#f58529 0%,#dd2a7b 30%,#8134af 60%,#515bd4 100%);">
+          <div class="modal-header">
+            <h5 class="modal-title">The Alchemist</h5>
+            <button class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body d-flex flex-column flex-md-row gap-3 text-dark">
+            <img src="./home_books/alchemist.jpg" class="img-fluid" style="width:200px;">
+            <div>
+              <p><strong>Author:</strong> Paulo Coelho</p>
+              <p><strong>Price:</strong> ₹399</p>
+              <p><strong>Rating:</strong> ⭐⭐⭐⭐</p>
+              <p><strong>Description:</strong> A magical journey about chasing your personal legend and destiny.</p>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-success" onclick="addToCart('The Alchemist',399,'./home_books/alchemist.jpg')">Add to Cart</button>
+            <button class="btn btn-dark" onclick="buyNow('The Alchemist',399,'./home_books/alchemist.jpg')">Buy Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3: Rich Dad Poor Dad -->
+    <div class="col">
+      <div class="card h-100 text-center">
+        <img src="./home_books/rich_dad.jpg" class="card-img-top img-fluid" alt="Rich Dad Poor Dad" style="height: 350px; object-fit: cover;">
         <div class="card-body">
           <h5 class="card-title">Rich Dad Poor Dad</h5>
-          <p class="card-text">“A guide to financial education and building wealth through smart money habits.”</p>
-          <a href="#" class="btn btn-outline-danger btn">Buy Now</a>
-          <a href="#" class="btn btn-outline-success btn">Add to Cart</a>
+          <p class="card-text">A guide to financial education and building wealth.</p>
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#richdadModal">View Details</button>
         </div>
       </div>
     </div>
 
-    <!-- Card 4 -->
-    <div class="col">
-      <div class="card h-100 text-center">
-        <img src="./home_books/atomic_habits.jpg" 
-             class="card-img-top img-fluid" 
-             alt="Book 4"
-             style="height: 350px; object-fit: cover;">
-        <div class="card-body">
-          <h5 class="card-title">Atomic Habits</h5>
-          <p class="card-text">“Proven strategies to build good habits, break bad ones, and achieve lasting success.”</p>
-          <a href="#" class="btn btn-outline-danger btn">Buy Now</a>
-          <a href="#" class="btn btn-outline-success btn">Add to Cart</a>
+    <!-- Modal 3 -->
+    <div class="modal fade" id="richdadModal" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-dark text-white">
+            <h5 class="modal-title">Rich Dad Poor Dad</h5>
+            <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body d-flex flex-column flex-md-row gap-3">
+            <img src="./home_books/rich_dad.jpg" class="img-fluid" style="width:200px;">
+            <div>
+              <p><strong>Author:</strong> Robert Kiyosaki</p>
+              <p><strong>Price:</strong> ₹349</p>
+              <p><strong>Rating:</strong> ⭐⭐⭐⭐</p>
+              <p><strong>Description:</strong> Learn how mindset, assets, and smart investing can lead to financial freedom.</p>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-success" onclick="addToCart('Rich Dad Poor Dad',349,'./home_books/rich_dad.jpg')">Add to Cart</button>
+            <button class="btn btn-primary" onclick="buyNow('Rich Dad Poor Dad',349,'./home_books/rich_dad.jpg')">Buy Now</button>
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- Card 4: Atomic Habits -->
+    <div class="col">
+      <div class="card h-100 text-center">
+        <img src="./home_books/atomic_habits.jpg" class="card-img-top img-fluid" alt="Atomic Habits" style="height: 350px; object-fit: cover;">
+        <div class="card-body">
+          <h5 class="card-title">Atomic Habits</h5>
+          <p class="card-text">Proven strategies to build good habits and achieve success.</p>
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#habitsModal">View Details</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal 4 -->
+    <div class="modal fade" id="habitsModal" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content" style="background:linear-gradient(135deg,#f58529 0%,#dd2a7b 30%,#8134af 60%,#515bd4 100%);">
+          <div class="modal-header">
+            <h5 class="modal-title">Atomic Habits</h5>
+            <button class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body d-flex flex-column flex-md-row gap-3 text-dark">
+            <img src="./home_books/atomic_habits.jpg" class="img-fluid" style="width:200px;">
+            <div>
+              <p><strong>Author:</strong> James Clear</p>
+              <p><strong>Price:</strong> ₹499</p>
+              <p><strong>Rating:</strong> ⭐⭐⭐⭐⭐</p>
+              <p><strong>Description:</strong> Learn how small changes can compound into remarkable results.</p>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-success" onclick="addToCart('Atomic Habits',499,'./home_books/atomic_habits.jpg')">Add to Cart</button>
+            <button class="btn btn-dark" onclick="buyNow('Atomic Habits',499,'./home_books/atomic_habits.jpg')">Buy Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
+
+<!-- ================= Cart Script ================= -->
+<script>
+  let cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
+
+  function saveCart() {
+    sessionStorage.setItem('cart', JSON.stringify(cart));
+  }
+
+  function updateCartBadge() {
+    const badge = document.getElementById('cartCount');
+    if (badge) badge.textContent = cart.length;
+  }
+
+  function renderCartUI() {
+    const cartItems = document.getElementById('cartItems');
+    if (!cartItems) return;
+
+    cartItems.innerHTML = '';
+    if (cart.length === 0) {
+      cartItems.innerHTML = '<p>Your cart is empty.</p>';
+      updateCartBadge();
+      return;
+    }
+
+    let total = 0;
+    cart.forEach((item, idx) => {
+      total += item.price;
+      const row = document.createElement('div');
+      row.className = 'cart-item d-flex justify-content-between align-items-center mb-2';
+      row.innerHTML = `
+        <div class="d-flex align-items-center">
+          <img src="${item.img}" alt="${item.title}" style="width:50px;height:70px;object-fit:cover;margin-right:10px;border-radius:4px;">
+          <div>
+            <div style="font-weight:600">${item.title}</div>
+            <div style="font-size:.9rem">₹${item.price}</div>
+          </div>
+        </div>
+        <button class="btn btn-sm btn-outline-danger" onclick="removeFromCart(${idx})">Remove</button>
+      `;
+      cartItems.appendChild(row);
+    });
+
+    // ✅ Only one Proceed button injected here
+    const totalDiv = document.createElement('div');
+    totalDiv.className = 'mt-3';
+    totalDiv.innerHTML = `
+      <hr>
+      <div class="d-flex justify-content-between">
+        <strong>Total:</strong><strong>₹${total}</strong>
+      </div>
+    `;
+    cartItems.appendChild(totalDiv);
+
+    updateCartBadge();
+  }
+
+  function removeFromCart(idx) {
+    cart.splice(idx, 1);
+    saveCart();
+    renderCartUI();
+  }
+
+  function addToCart(title, price, img) {
+    cart.push({ title, price, img });
+    saveCart();
+    renderCartUI();
+  }
+
+  function buyNow(title, price, img) {
+    const user = sessionStorage.getItem('currentUser');
+    if (!user) {
+      alert('Please login first.');
+      location.href = 'login.html';
+      return;
+    }
+    cart.push({ title, price, img });
+    saveCart();
+    renderCartUI();
+
+    const offEl = document.getElementById('offcanvasCart');
+    if (offEl) {
+      const off = new bootstrap.Offcanvas(offEl);
+      off.show();
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    renderCartUI();
+  });
+</script>
+
+
+
+
+
+
 
 <div class="container my-5">
   <h2 class="text-center mb-4 fw-light text-info" style="font-size: 4rem;">Quote of the Moment</h2>
@@ -431,6 +675,16 @@
     </div>
   </div>
 </footer>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="cartCanvas">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title">Your Cart</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+  </div>
+  <div class="offcanvas-body">
+   <!--js will add the code-->
+  </div>
+</div>
 
 <!-- 👇 Moved: load bootstrap JS here (was previously placed near top of the body) -->
 <script src="./js/bootstrap.js"></script>

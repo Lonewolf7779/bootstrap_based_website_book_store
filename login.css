@@ -1,3 +1,21 @@
+/* Navbar scroll effect */
+#mainNavbar {
+    transition: background-color 0.35s ease, box-shadow 0.35s ease;
+    background-color: transparent !important; /* transparent initially */
+}
+
+/* When scrolled */
+#mainNavbar.scrolled {
+    background-color: rgba(0,0,0,0.95) !important; /* dark background */
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25); /* subtle shadow */
+}
+
+/* Collapsed mobile menu background when scrolled */
+#mainNavbar.scrolled .navbar-collapse {
+    background-color: rgba(0,0,0,0.95); /* dark mobile menu */
+}
+
+
 body {
   font-family: 'Segoe UI', system-ui, sans-serif;
   background-color: #f5f5f5;

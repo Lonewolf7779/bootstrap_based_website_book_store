@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fiction Books — Page & Pillow</title>
+  <link rel="stylesheet" href="./css/bootstrap.css">
+  <style>
+    body { padding-top: 90px; background:#f8f9fa; overflow-x:hidden; }
+    #mainNavbar { transition: background-color 0.4s ease; }
+    #mainNavbar.scrolled { background-color: rgba(0,0,0,0.85) !important; }
+    .card { cursor:pointer; border:none; border-radius:0.75rem; box-shadow:0 4px 8px rgba(0,0,0,0.1); transition:transform .2s; }
+    .card:hover { transform:translateY(-5px); }
+    .card img { height:280px; object-fit:cover; border-bottom:1px solid #eee; }
+    .card-body { text-align:center; }
+    .card-title { font-weight:600; font-size:1.1rem; }
+    .card-price { color:#28a745; font-weight:500; }
+    .modal-content { border-radius:0.75rem; }
+    #cartItems img { width:50px; height:70px; object-fit:cover; border-radius:0.25rem; }
+    #cartItems .cart-item { display:flex; align-items:center; justify-content:space-between; margin-bottom:.75rem; }
+    #cartItems .cart-info { margin-left:.75rem; }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav id="mainNavbar" class="navbar navbar-expand-lg navbar-dark bg-transparent fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand fs-4 fw-light text-dark" href="home.html">Page & Pillow</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-4 text-center">
+          <li class="nav-item"><a class="nav-link text-dark fs-5 fw-light" href="home.html#about-us">About us</a></li>
+          <li class="nav-item"><a class="nav-link text-dark fs-5 fw-light" href="books.html">Books</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-dark fs-5 fw-light" href="#" role="button" data-bs-toggle="dropdown">Category</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="fiction.html">Fiction</a></li>
+              <li><a class="dropdown-item" href="nonfiction.html">Non-Fiction</a></li>
+              <li><a class="dropdown-item" href="selfhelp.html">Self-Help</a></li>
+              <li><a class="dropdown-item" href="sciencetech.html">Science & Tech</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link text-dark fs-5 fw-light" href="home.html#best-sellers">Best Sellers</a></li>
+        </ul>
+        <ul class="navbar-nav ms-auto text-center align-items-center">
+          <li class="nav-item me-3">
+            <a class="nav-link text-dark fs-5 fw-light" href="#" id="cartBtn" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart">
+              Cart <span id="cartCount" class="badge bg-danger ms-1">0</span>
+            </a>
+          </li>
+          <li class="nav-item"><a id="navbarUser" class="nav-link text-dark fs-5 fw-light" href="login.html">Sign in</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Books Grid -->
+  <main class="container my-5">
+    <div class="row" id="booksContainer"></div>
+  </main>
+
+  <!-- Cart Offcanvas -->
+  <div class="offcanvas offcanvas-start" id="offcanvasCart">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title">Your Cart</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body" id="cartItems">
+      <p>Your cart is empty.</p>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="bookModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-dark text-white">
+          <h5 class="modal-title" id="bookModalLabel">Book Title</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body bg-white text-dark"></div>
+        <div class="modal-footer">
+          <button class="btn btn-success" id="modalAddCart">Add to Cart</button>
+          <button class="btn btn-primary" id="modalBuyNow">Buy Now</button>
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="cartToast" class="toast text-bg-success border-0">
+      <div class="d-flex">
+        <div class="toast-body">Book added to cart!</div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+      </div>
+    </div>
+  </div>
+
+  <script src="./js/bootstrap.js"></script>
+  <script>
+    const books = [
+      {id:1,title:"The Alchemist",author:"Paulo Coelho",price:399,img:"https://images-na.ssl-images-amazon.com/images/I/51Z0nLAfLmL._SX320_BO1,204,203,200_.jpg",desc:"A novel about following your dreams."},
+      {id:2,title:"The Great Gatsby",author:"F. Scott Fitzgerald",price:219,img:"https://picsum.photos/seed/book5/400/600",desc:"A tale of wealth, love, and the American dream."},
+      {id:3,title:"Moby Dick",author:"Herman Melville",price:269,img:"https://picsum.photos/seed/book6/400/600",desc:"An epic sea adventure of obsession and revenge."},
+      {id:4,title:"Brave New World",author:"Aldous Huxley",price:249,img:"https://picsum.photos/seed/book7/400/600",desc:"A futuristic dystopia about technology and control."},
+      {id:5,title:"The Catcher in the Rye",author:"J.D. Salinger",price:199,img:"https://picsum.photos/seed/book8/400/600",desc:"A teenage rebellion story about identity and alienation."},
+      {id:6,title:"Jane Eyre",author:"Charlotte Brontë",price:229,img:"https://picsum.photos/seed/book9/400/600",desc:"A gothic romance of a strong, independent woman."},
+      {id:7,title:"Pride and Prejudice",author:"Jane Austen",price:259,img:"https://picsum.photos/seed/book37/400/600",desc:"Classic romance and social commentary."},
+      {id:8,title:"To Kill a Mockingbird",author:"Harper Lee",price:279,img:"https://picsum.photos/seed/book38/400/600",desc:"A powerful tale of justice and racial inequality."}
+    ];
+
+    let cart = JSON.parse(sessionStorage.getItem("cart")||"[]");
+    let currentUser = sessionStorage.getItem("currentUser")||"";
+    const booksContainer=document.getElementById("booksContainer");
+    const cartItems=document.getElementById("cartItems");
+    const cartCount=document.getElementById("cartCount");
+    const modal=new bootstrap.Modal(document.getElementById("bookModal"));
+    const modalTitle=document.getElementById("bookModalLabel");
+    const modalBody=document.querySelector("#bookModal .modal-body");
+    const modalAddCart=document.getElementById("modalAddCart");
+    const modalBuyNow=document.getElementById("modalBuyNow");
+    const cartToast=new bootstrap.Toast(document.getElementById("cartToast"));
+
+    function updateNavbar(){
+      const navbarUser=document.getElementById("navbarUser");
+      if(currentUser){
+        navbarUser.innerHTML=`<a href="#" class="nav-link text-dark">Welcome, ${currentUser}</a>`;
+        navbarUser.querySelector("a").addEventListener("click",e=>{
+          e.preventDefault();
+          if(confirm("Do you want to logout?")){
+            sessionStorage.removeItem("currentUser");
+            location.reload();
+          }
+        });
+      }
+    }
+    function updateCart(){
+      cartCount.textContent=cart.length;
+      sessionStorage.setItem("cart",JSON.stringify(cart));
+    }
+    function renderCartUI(){
+      if(cart.length===0){cartItems.innerHTML="<p>Your cart is empty.</p>";return;}
+      cartItems.innerHTML="";
+      let total=0;
+      cart.forEach((b,i)=>{
+        total+=b.price;
+        cartItems.innerHTML+=`
+          <div class="cart-item">
+            <div class="d-flex align-items-center">
+              <img src="${b.img}"><div class="cart-info">
+              <div style="font-weight:600">${b.title}</div>
+              <div>₹${b.price} • ${b.author}</div></div>
+            </div>
+            <button class="btn btn-sm btn-outline-danger" onclick="removeItem(${i})">Remove</button>
+          </div>`;
+      });
+      cartItems.innerHTML+=`<hr><div class="d-flex justify-content-between"><strong>Total:</strong><strong>₹${total}</strong></div>`;
+    }
+    function removeItem(i){cart.splice(i,1);updateCart();renderCartUI();}
+    function renderBooks(){
+      booksContainer.innerHTML="";
+      books.forEach(b=>{
+        const col=document.createElement("div");
+        col.className="col-lg-3 col-md-4 col-sm-6 mb-4";
+        col.innerHTML=`
+          <div class="card h-100" data-id="${b.id}">
+            <img src="${b.img}" class="card-img-top"><div class="card-body">
+              <div class="card-title">${b.title}</div><div class="card-price">₹${b.price}</div>
+            </div></div>`;
+        booksContainer.appendChild(col);
+        col.querySelector(".card").addEventListener("click",()=>openModal(b));
+      });
+    }
+    function openModal(b){
+      modalTitle.textContent=b.title;
+      modalBody.innerHTML=`<div class="d-flex flex-column flex-md-row gap-3">
+        <img src="${b.img}" style="width:180px"><div>
+          <p><strong>Author:</strong> ${b.author}</p>
+          <p><strong>Price:</strong> ₹${b.price}</p>
+          <p>${b.desc}</p></div></div>`;
+      modalAddCart.onclick=()=>{
+        if(!currentUser){alert("Please login to add to cart.");location.href="login.html";return;}
+        cart.push(b);updateCart();renderCartUI();cartToast.show();modal.hide();
+      };
+      modalBuyNow.onclick=()=>{
+        if(!currentUser){alert("Please login to buy.");location.href="login.html";return;}
+        cart.push(b);updateCart();renderCartUI();const off=new bootstrap.Offcanvas(document.getElementById("offcanvasCart"));off.show();modal.hide();
+      };
+      modal.show();
+    }
+
+    renderBooks();updateCart();renderCartUI();updateNavbar();
+  </script>
+</body>
+</html>

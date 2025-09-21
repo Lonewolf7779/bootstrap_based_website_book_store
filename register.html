@@ -10,21 +10,15 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #f7f7f7;
       margin: 0;
-      min-height: 100vh;
       display: flex;
       flex-direction: column;
     }
 
-    /* Navbar matches books.html */
     .navbar-brand, .nav-link {
       color: #000 !important;
       font-weight: 300;
     }
-    .nav-link.active {
-      font-weight: 500;
-    }
 
-    /* Centered card container */
     .register-card {
       max-width: 600px;
       margin: 6rem auto 3rem;
@@ -40,7 +34,6 @@
       font-weight: 400;
     }
 
-    /* Form fields */
     .form-control {
       border-radius: 0.5rem;
       border: 1px solid #ccc;
@@ -49,7 +42,6 @@
     }
 
     .form-control:focus {
-      outline: none;
       border-color: #000;
       box-shadow: 0 0 5px rgba(0,0,0,0.2);
     }
@@ -69,12 +61,6 @@
       margin-top: 0.5rem;
     }
 
-    /* Split fields */
-    .row-cols-2 > .col {
-      padding-left: 0.5rem;
-      padding-right: 0.5rem;
-    }
-
     button {
       width: 100%;
       padding: 0.8rem;
@@ -85,6 +71,7 @@
       color: #fff;
       transition: 0.3s;
     }
+
     button:hover {
       background: #fff;
       color: #000;
@@ -98,9 +85,8 @@
       text-align: center;
       margin-top: 1rem;
     }
-    a:hover {
-      text-decoration: underline;
-    }
+
+    a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
@@ -120,8 +106,9 @@
           <li class="nav-item"><a class="nav-link text-dark fs-5 fw-light" href="home.html#best-sellers">Best Sellers</a></li>
         </ul>
         <ul class="navbar-nav ms-auto text-center align-items-center">
-          <li class="nav-item me-3"><a class="nav-link text-dark fs-5 fw-light" href="login.html" id="signInLink">Sign in</a></li>
-          <li class="nav-item d-none" id="welcomeUser"><a class="nav-link text-dark fs-5 fw-light" href="#">Welcome, <span id="usernameDisplay"></span></a></li>
+          <li class="nav-item" id="navbarUser">
+            <a class="nav-link text-dark fs-5 fw-light" href="login.html">Sign in</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -144,7 +131,7 @@
 
       <div class="mt-3">
         <input type="text" id="username" placeholder="Username" class="form-control">
-        <span id="usernameError" class="error">Username must be 3+ chars, no special chars</span>
+        <span id="usernameError" class="error">Username must be 3+ chars</span>
       </div>
 
       <div class="mt-3">
@@ -175,19 +162,9 @@
   <script src="./js/bootstrap.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      // update navbar if already logged in
-      const loggedUser = sessionStorage.getItem("currentUser");
-      if (loggedUser) {
-        document.getElementById("signInLink").classList.add("d-none");
-        document.getElementById("welcomeUser").classList.remove("d-none");
-        document.getElementById("usernameDisplay").textContent = loggedUser;
-      }
-
-      const form = document.getElementById("registerForm");
-      form.addEventListener("click", (e) => e.preventDefault()); // prevent submit
+      updateNavbar();
 
       document.getElementById("registerBtn").addEventListener("click", () => {
-        // Get values
         const firstName = document.getElementById("firstName").value.trim();
         const lastName = document.getElementById("lastName").value.trim();
         const username = document.getElementById("username").value.trim();
@@ -195,49 +172,49 @@
         const password = document.getElementById("password").value;
         const confirmPassword = document.getElementById("confirmPassword").value;
 
-        // Reset errors
         document.querySelectorAll(".error").forEach(e => e.style.display = "none");
         let valid = true;
 
-        const namePattern = /^[A-Za-z]+$/;
-        if (!namePattern.test(firstName) || firstName.length < 2) { 
-          document.getElementById("firstNameError").style.display = "block"; valid = false; 
-        }
-        if (!namePattern.test(lastName) || lastName.length < 2) { 
-          document.getElementById("lastNameError").style.display = "block"; valid = false; 
-        }
-        const usernamePattern = /^[A-Za-z0-9]{3,}$/;
-        if (!usernamePattern.test(username)) { 
-          document.getElementById("usernameError").style.display = "block"; valid = false; 
-        }
-        const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,}$/;
-        if (!emailPattern.test(email)) { 
-          document.getElementById("emailError").style.display = "block"; valid = false; 
-        }
-        const passPattern = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
-        if (!passPattern.test(password)) { 
-          document.getElementById("passError").style.display = "block"; valid = false; 
-        }
-        if (password !== confirmPassword) { 
-          document.getElementById("confirmError").style.display = "block"; valid = false; 
-        }
+        if (!/^[A-Za-z]{2,}$/.test(firstName)) { document.getElementById("firstNameError").style.display = "block"; valid = false; }
+        if (!/^[A-Za-z]{2,}$/.test(lastName)) { document.getElementById("lastNameError").style.display = "block"; valid = false; }
+        if (!/^[A-Za-z0-9]{3,}$/.test(username)) { document.getElementById("usernameError").style.display = "block"; valid = false; }
+        if (!/^[^ ]+@[^ ]+\.[a-z]{2,}$/.test(email)) { document.getElementById("emailError").style.display = "block"; valid = false; }
+        if (!/^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/.test(password)) { document.getElementById("passError").style.display = "block"; valid = false; }
+        if (password !== confirmPassword) { document.getElementById("confirmError").style.display = "block"; valid = false; }
 
         if (!valid) return;
 
-        // Save to localStorage/sessionStorage
         const users = JSON.parse(localStorage.getItem("users") || "[]");
         if (users.find(u => u.username === username)) { alert("Username exists!"); return; }
         if (users.find(u => u.email === email)) { alert("Email already registered!"); return; }
 
         users.push({ firstName, lastName, username, email, password });
         localStorage.setItem("users", JSON.stringify(users));
-        sessionStorage.setItem("currentUser", username);
+        localStorage.setItem("currentUser", username);
 
         document.getElementById("successMsg").style.display = "block";
-
-        setTimeout(() => { window.location.href = "books.html"; }, 1200);
+        setTimeout(() => { window.location.href = "home.html"; }, 1200);
       });
     });
+
+    function updateNavbar() {
+      const navbarUser = document.getElementById("navbarUser");
+      const currentUser = localStorage.getItem("currentUser");
+
+      if (currentUser) {
+        navbarUser.innerHTML = `<a href="#" id="welcomeUser" class="nav-link text-dark fs-5 fw-light">Welcome, ${currentUser}</a>`;
+        const welcomeLink = document.getElementById("welcomeUser");
+        welcomeLink.addEventListener("click", (e) => {
+          e.preventDefault();
+          if (confirm("Do you want to logout?")) {
+            localStorage.removeItem("currentUser");
+            window.location.reload();
+          }
+        });
+      } else {
+        navbarUser.innerHTML = `<a href="login.html" class="nav-link text-dark fs-5 fw-light">Sign in</a>`;
+      }
+    }
   </script>
 </body>
 </html>
