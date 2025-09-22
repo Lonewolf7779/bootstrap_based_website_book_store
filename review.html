@@ -174,33 +174,66 @@
 
         <!-- Write Review (Floating Labels) -->
         <section id="write-review" class="pt-5 pb-3">
-          <h2>Write a Review</h2>
-          <form>
-            <div class="form-floating mb-3">
-              <input type="text" class="form-control" id="name" placeholder="Your Name">
-              <label for="name">Your Name</label>
-            </div>
-            <div class="form-floating mb-3">
-              <input type="text" class="form-control" id="book" placeholder="Book Name">
-              <label for="book">Book Name</label>
-            </div>
-            <div class="form-floating mb-3">
-              <select class="form-select" id="rating">
-                <option>⭐⭐⭐⭐⭐</option>
-                <option>⭐⭐⭐⭐</option>
-                <option>⭐⭐⭐</option>
-                <option>⭐⭐</option>
-                <option>⭐</option>
-              </select>
-              <label for="rating">Rating</label>
-            </div>
-            <div class="form-floating mb-3">
-              <textarea class="form-control" placeholder="Leave a review" id="reviewText" style="height: 120px"></textarea>
-              <label for="reviewText">Review</label>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit Review</button>
-          </form>
-        </section>
+    <h2>Write a Review</h2>
+    <form id="reviewForm">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="name" placeholder="Your Name">
+        <label for="name">Your Name</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="book" placeholder="Book Name">
+        <label for="book">Book Name</label>
+      </div>
+      <div class="form-floating mb-3">
+        <select class="form-select" id="rating">
+          <option>⭐⭐⭐⭐⭐</option>
+          <option>⭐⭐⭐⭐</option>
+          <option>⭐⭐⭐</option>
+          <option>⭐⭐</option>
+          <option>⭐</option>
+        </select>
+        <label for="rating">Rating</label>
+      </div>
+      <div class="form-floating mb-3">
+        <textarea class="form-control" placeholder="Leave a review" id="reviewText" style="height: 120px"></textarea>
+        <label for="reviewText">Review</label>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit Review</button>
+      <button type="reset" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Clear your review">Reset</button>
+    </form>
+  </section>
+
+  <!-- Toast container -->
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="reviewToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">
+          Your review has been submitted successfully!
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap Bundle JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    // Enable tooltips
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    tooltipTriggerList.forEach(el => new bootstrap.Tooltip(el))
+
+    // Toast on form submit
+    const reviewForm = document.getElementById('reviewForm')
+    const reviewToastEl = document.getElementById('reviewToast')
+    const reviewToast = new bootstrap.Toast(reviewToastEl)
+
+    reviewForm.addEventListener('submit', function (e) {
+      e.preventDefault(); // prevent page refresh
+      reviewToast.show(); // show the toast
+      reviewForm.reset(); // optional: clear form after submit
+    })
+  </script>
 
       </main>
     </div>
